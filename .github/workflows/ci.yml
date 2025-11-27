@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup CCache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          create-symlink: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: "setup.py"
+
+      - name: Install build deps (LiteX etc.)
+        run: |
+          apt-get update
+          apt-get install -y build-essential git python3-pip make gcc
+          pip install --upgrade pip
+          pip install setuptools requests pexpect meson pytest
+
+      - name: Build gateware (FPGA bitstream)
+        run: |
+          echo "TODO: call LiteX build script"
+          # python hw/build.py --board=colorlight_i5
+
+      - name: Build firmware
+        run: |
+          echo "TODO: build bare-metal firmware"
+          # make -C sw/firmware
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: iceguard-build
+          path: |
+            hw/build/
+            sw/firmware/build/
+          if-no-files-found: ignore
