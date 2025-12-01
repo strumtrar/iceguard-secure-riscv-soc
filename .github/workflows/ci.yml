@@ -33,7 +33,7 @@ jobs:
           venv/bin/pip install litex-boards
           venv/bin/pip install litedram
           venv/bin/pip install liteeth
-          venv/bin/python hw/build.py --board=colorlight_i5
+          venv/bin/python hw/build.py --build --integrated-rom-size=0x8000
 
       - name: Build firmware
         run: |
