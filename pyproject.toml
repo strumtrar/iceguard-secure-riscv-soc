@@ -17,7 +17,8 @@ dependencies = [
   "litex-boards",
   "litedram",
   "liteeth",
-  "pythondata-cpu-vexriscv"
+  "pythondata-cpu-vexriscv",
+  "pythondata-software-picolib"
 ]
 
 [project.optional-dependencies]
