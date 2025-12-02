@@ -13,31 +13,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup CCache
-        uses: hendrikmuhs/ccache-action@v1.2
+      - name: Setup python
+        uses: actions/setup-python@v6
         with:
-          create-symlink: true
+          python-version: '3.13'
 
-      - name: Install build deps (LiteX etc.)
+      - name: Install python deps (from pyproject.toml)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential git python3 python3-pip make gcc
-          sudo apt-get install -y python3-setuptools python3-requests python3-pexpect python3-pytest
+          python -m pip install --upgrade pip
+          pip install .
 
       - name: Build gateware (FPGA bitstream)
         run: |
           echo "TODO: call LiteX build script"
-          python3 -m venv venv
-          venv/bin/pip install migen
-          venv/bin/pip install litex
-          venv/bin/pip install litex-boards
-          venv/bin/pip install litedram
-          venv/bin/pip install liteeth
-          venv/bin/python hw/build.py --build --integrated-rom-size=0x8000
+          python hw/build.py --build --integrated-rom-size=0x8000
 
       - name: Build firmware
         run: |
-          make -C sw/firmware
+          #make -C sw/firmware
 
       - name: Archive build artifacts
         uses: actions/upload-artifact@v4
