@@ -18,7 +18,8 @@ dependencies = [
   "litedram",
   "liteeth",
   "pythondata-cpu-vexriscv",
-  "pythondata-software-picolibc"
+  "pythondata-software-picolibc",
+  "pythondata-software-compiler_rt"
 ]
 
 [project.optional-dependencies]
