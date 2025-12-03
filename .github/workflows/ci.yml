@@ -13,6 +13,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Setup python
         uses: actions/setup-python@v6
         with:
@@ -21,7 +30,7 @@ jobs:
       - name: Install python deps (from pyproject.toml)
         run: |
           python -m pip install --upgrade pip
-          pip install .
+          pip install --cache-dir ~/.cache/pip .
 
       - name: Install debian deps
         run: |
@@ -30,6 +39,14 @@ jobs:
           sudo apt-get install yosys nextpnr-ecp5
           sudo apt-get install fpga-trellis
 
+      - name: Cache LiteX
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/colorlight_i5
+          key: ${{ runner.os }}-litex-build-${{ hashFiles('hw/**') }}
+          restore-keys: |
+            ${{ runner.os }}-litex-build-
       - name: Build gateware (FPGA bitstream)
         run: |
           echo "TODO: call LiteX build script"
@@ -44,6 +61,10 @@ jobs:
         with:
           name: iceguard-build
           path: |
-            hw/build/
-            sw/firmware/build/
+            build/colorlight_i5/gateware/colorlight_i5.bit
+            build/colorlight_i5/gateware/colorlight_i5.config
+            build/colorlight_i5/gateware/colorlight_i5.svf
+            build/colorlight_i5/gateware/colorlight_i5.v
+            build/colorlight_i5/software/bios/bios.bin
+            build/colorlight_i5/software/bios/bios.elf
           if-no-files-found: ignore
