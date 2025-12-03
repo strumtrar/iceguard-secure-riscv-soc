@@ -28,6 +28,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install gcc-riscv64-unknown-elf
           sudo apt-get install yosys nextpnr-ecp5
+          sudo apt-get install fpga-trellis
 
       - name: Build gateware (FPGA bitstream)
         run: |
