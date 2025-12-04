@@ -49,7 +49,7 @@ jobs:
             ${{ runner.os }}-litex-build-
       - name: Build gateware (FPGA bitstream)
         run: |
-          echo "TODO: call LiteX build script"
+          ls -la riscv*
           python hw/build.py --build --integrated-rom-size=0x8000
 
       - name: Build firmware
