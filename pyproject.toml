@@ -7,7 +7,7 @@ packages = []
 py-modules = []
 
 [project]
-name = "iceguardr-secure-riscv"
+name = "iceguard-secure-riscv"
 version = "2025.12.0" 
 description = "IceGuard - Secure RISC-V SoC on FPGA"
 requires-python = ">=3.10"
