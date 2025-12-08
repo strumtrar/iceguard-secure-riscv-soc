@@ -42,10 +42,14 @@
               pkgs.trellis
               pkgs.iverilog
               pkgs.openfpgaloader
-              pkgs.python3Packages.migen
-              pkgs.python3Packages.distutils
-              pkgs.python3Packages.jinja2
+	      (pkgs.python310.withPackages (pypkgs: [
+	              pypkgs.migen
+  		      pypkgs.meson
+	      ]))
               pkgs.pkgsCross.riscv64.buildPackages.gcc
+              pkgs.pkgsCross.riscv64.buildPackages.binutils
+              pkgs.pkgsCross.riscv32.buildPackages.gcc
+              pkgs.pkgsCross.riscv32.buildPackages.binutils
             ];
 	  };
 	};
