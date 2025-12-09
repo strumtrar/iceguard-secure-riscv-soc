@@ -48,8 +48,6 @@
 	      ]))
               pkgs.pkgsCross.riscv64.buildPackages.gcc
               pkgs.pkgsCross.riscv64.buildPackages.binutils
-              pkgs.pkgsCross.riscv32.buildPackages.gcc
-              pkgs.pkgsCross.riscv32.buildPackages.binutils
             ];
 	  };
 	};
